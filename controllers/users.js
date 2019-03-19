@@ -29,7 +29,7 @@ module.exports = {
     },
     signIn: async(req,res,next)=>{
         //Genrate Tokens
-        console.log("UsersController.signIn called");
+        console.log("signIn successfully");
     },
     secret: async(req,res,next)=>{
         console.log("UsersController.secret called");

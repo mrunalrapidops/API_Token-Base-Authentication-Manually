@@ -6,6 +6,6 @@ const passportConf = require('../passport');
 const {validateBody,schema} = require('../helpers/routeHelpers');
 const UsersController = require('../controllers/users');
 router.route('/signup').post(validateBody(schema.authSchema),UsersController.signUp);
-router.route('/signin').post(UsersController.signIn);
+router.route('/signin').post(validateBody(schema.authSchema),passport.authenticate('local',{session:true}),UsersController.signIn);
 router.route('/secret').get(passport.authenticate('jwt',{session:false}),UsersController.secret);
 module.exports = router;

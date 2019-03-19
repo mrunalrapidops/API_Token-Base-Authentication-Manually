@@ -4,7 +4,7 @@ const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
 //connection 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/AAuth',{ useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/AAuth',{ useCreateIndex: true,useNewUrlParser: true });
 const app = express();
 //Middelware
 app.use(morgan('dev'));
