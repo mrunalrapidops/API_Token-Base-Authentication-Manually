@@ -1,3 +1,4 @@
+//mongoose schema information and validation
 const Joi = require('joi');
 module.exports={
     validateBody:(schema) =>{
