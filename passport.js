@@ -23,12 +23,42 @@ passport.use(new JwtStrategy({
     }
 }));
 //local strategy
-passport.use(new LocalStrategy({usernameField:'email'},
+/* passport.use(new LocalStrategy({usernameField:'email'},
     async(email, password, done) =>{
-    const user =  await User.findOne({email});
-    if (!user) { return done(null, false); }
-    const isMatch = await user.verifyPassword(password);
-    if(!isMatch){ return done(null, false); }
-    return done(null, user);
+    try{
+        const user =  await User.findOne({email});
+        if (!user) { return done(null, false); }
+        const isMatch = await user.isValidPasswords(password);
+        if(!isMatch){ return done(null, false); }
+        done(null, user);
+    }catch(error){
+        done(error,false);
+        }
     }
-  ));
+  )); */
+  passport.use(new LocalStrategy({
+    usernameField: 'email'
+  }, async (email, password, done) => {
+    try {
+      // Find the user given the email
+      const user = await User.findOne({ email });
+      
+      // If not, handle it
+      if (!user) {
+        return done(null, false);
+      }
+    
+      // Check if the password is correct
+      const isMatch = await user.isValidPassword(password);
+    
+      // If not, handle it
+      if (!isMatch) {
+        return done(null, false);
+      }
+    
+      // Otherwise, return the user
+      return done(null, user);
+    } catch(error) {
+      done(error, false);
+    }
+  }));

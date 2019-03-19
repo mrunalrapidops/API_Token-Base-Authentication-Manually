@@ -22,12 +22,15 @@ userSchema.pre('save',async function(next){
         const passwordhash = await bcrypt.hash(this.password,salt);
         //asign hashversion to original 
         this.password = passwordhash;
+        /* console.log('salt:',salt);
+        console.log('password',this.password);
+        console.log('passwordhash:',passwordhash); */
         next(); 
     }catch(error){
         next(error);
     }
 });
-userSchema.methods.isValidPasswords = async function(newPasswords){
+userSchema.methods.isValidPassword = async function(newPasswords){
     try{
          return await bcrypt.compare(newPasswords,this.password);
     }catch(error)
